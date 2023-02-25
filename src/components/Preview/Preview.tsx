@@ -9,6 +9,7 @@ function Preview() {
 
   const handleRun = async () => {
     setRunning(true);
+    setReady(false);
     run(files, iframeRef.current, () => {
       setRunning(false);
       setReady(true);
@@ -17,15 +18,18 @@ function Preview() {
 
   return (
     <div className="mockup-window bg-base-300 w-full max-w-[1024px] h-1/2">
-      <button
-        className={`btn btn-primary btn-sm absolute top-2 right-6 ${
-          running ? "loading" : ""
-        }`}
-        disabled={running}
-        onClick={handleRun}
+      <div
+        className="tooltip tooltip-left tooltip-primary absolute top-2 right-6"
+        data-tip="Allow third-party cookies before running"
       >
-        {running ? "Running" : "Run"}
-      </button>
+        <button
+          className={`btn btn-primary btn-sm ${running ? "loading" : ""}`}
+          disabled={running}
+          onClick={handleRun}
+        >
+          {running ? "Running" : "Run"}
+        </button>
+      </div>
       <div
         className={`justify-center items-center h-full px-4 py-16 bg-base-200 ${
           ready ? "hidden" : "flex"
